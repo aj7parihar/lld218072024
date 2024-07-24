@@ -1,0 +1,196 @@
+## Single Design Pattern/Principle -
+
+--> Restricts the instantiation of the class to the single object/instance.
+--> When we try to create multiple instances of the class --> same object is returned.
+--> Object is Immutable i.e. it cannot be changed.
+
+# Use case of Singleton -
+--> Whenever we have manager kind of class i.e. single class to manage multiple resources then we use Singleton.
+ex- DB Connections, RestTemplate --> @Bean (configuration) creating instance once and using it again and
+again, logger (system generated log at one place), etc.
+
+*** 1 If we want to restrict instance/object creation outside the class then we can do this
+by declaring the constructor() as 'private'. ***
+
+*** 2 And if we want only one instance of the class to be created then we can do this declare a private
+variable of class type inside it***
+
+*** 3 Inside class, static attributes & behaviours can be called directly but outside class we can access them by
+classname.attribute or classname.behaviours, static can only access static not anything else whether inside or
+outside the class***
+
+
+# Implementing Singleton -
+
+---->>> LAZY INSTANTIATION (because the instance will be created at runtime when the getInstance()
+ method is called) in Singleton and this is not thread safe i.e. safe only for single thread
+class DatabaseConnection{
+    // 2. but since we want only one instance and that cannot be done because of '1.' hence this
+    // private static instance inside the same class '2.'
+    private static DatabaseConnection dbc;
+
+    String url;
+    String username;
+    String password;
+
+    // 1. restricting everyone not to create even a single object of the class
+    private DatabaseConnection{
+    //
+    }
+
+    // 3. What if we want to access this class instance outside the class?
+    // creating a public method(), and returning instance of the class, so that it can be access as per use.
+    // since method() of a class can only be access via it's object outside the class hence making it
+    // static so that it can be accessed via the classname, refer '*** 3'.
+
+    public static DatabaseConnection getInstance(){
+        // check if instance is null
+        if(dbc == null){
+            dbc = new DatabaseConnection();
+        }
+        // else in any case
+        return dbc;
+    }
+}
+
+// Assume there is another class from where we want to access the instance of class 'DatabaseConnection'
+    // Below will not be allowed as the constructor is declared private
+    DatabaseConnection dbc1 = new DatabaseConnection();
+
+    // This will be allowed
+    DatabaseConnection dbc = DatabaseConnection.getInstance(); // refer '3.' & '*** 3'
+
+---->
+----> this is also ---->>> LAZY INSTANTIATION in Singleton and this is not thread safe
+Can we create an instance of a class inside the same class if the constructor is declared private?
+
+Yes, you can create an instance of a class inside the same class even if the constructor is declared private.
+This is often done in the Singleton design pattern to ensure that only one instance of the class is created.
+
+Ex -
+public class Singleton {
+    // Static variable to hold the single instance of the class
+    private static Singleton instance;
+
+    // Private constructor to prevent instantiation from other classes
+    private Singleton() {
+        // Initialization code
+    }
+
+    // Public method to provide access to the instance
+    public static Singleton getInstance() {
+        if (instance == null) {
+            instance = new Singleton();
+        }
+        return instance;
+    }
+}
+
+Explanation -
+In the above example:
+
+The constructor Singleton() is private, so it cannot be called from outside the class.
+The static method getInstance() checks if an instance of the class already exists. If it doesn't, it creates a new instance using the private constructor.
+The method then returns the single instance of the class.
+This ensures that only one instance of the Singleton class can be created and accessed globally within the application.
+
+
+*** 4 All the thing which are declared as 'static' will be created at compile time ***
+
+
+-----> EAGER INSTANTIATION (because the instance is created at compile/class loading time itself ***4) in Singleton
+Eager instantiation is a design pattern where the instance of the Singleton class is
+created at the time of class loading. This approach is simple and thread-safe without requiring synchronization,
+but it can result in resource wastage if the instance is not used.
+
+ex -
+public class DatabaseConnection {
+    // Static variable to hold the single instance of the class
+    private static final DatabaseConnection dbc = new DatabaseConnection();
+
+    // Private constructor to prevent instantiation from other classes
+    private DatabaseConnection() {
+        // Initialization code
+    }
+
+    // Public method to provide access to the instance outside the class
+    public static DatabaseConnection getInstance() {
+        return dbc;
+    }
+}
+
+In this version:
+
+Static Initialization: The instance is created at the time of class loading with the line
+private static final DatabaseConnection dbc = new DatabaseConnection();.
+
+Thread-Safe: This approach is inherently thread-safe because the instance is created by the
+class loader during compile time itself, which guarantees that the instance is created only once.
+
+This method is effective and simple but should be used when it is acceptable to create the instance
+at the time of class loading (during compile time itself ***4), regardless of whether it is actually
+used in the application or not.
+
+
+EAGER vs LAZY Object Creation -
+EAGER -
+--> Thread safe as instance will be created only once at compile/class loading time itself, and multiple threads
+won't impact the critical section of the code.
+--> In case we have so many classes where singleton pattern is applied, we have to create
+multiple objects pre-hand (whether required or not),
+which can increase class loading/compile time ( i.e. more trade off time)
+and also too many objects can cause memory over head.
+--> Since class loading/ compile time is more the app will start slow, but runtime will be fast.
+--> Since the objects are already created at class loading/compile time, hence we cannot pass
+arguments to 'getInstance()' method to create objects as per our need.
+--> Not Performance efficient.
+
+
+LAZY -
+--> Not multi thread safe as multiple threads can access the 'getInstance()' method simultaneously,
+leading to creation of multiple objects thus violating Singleton principle.
+--> Object is created at run time and only when the 'getInstance()' method is called (whenever it is required),
+hence no time and memory wastage (i.e. less trade off time).
+--> Since class loading/ compile time is less the app will start fast, but runtime will be slow because we might
+have to create objects based on the function call 'getInstance()'.
+--> Since the objects are created only when the 'getInstance()' method is called, hence we can pass
+arguments to this method to create objects as per our need.
+--> Performance efficient.
+
+
+
+# Solving Multi-Thread Problem in Case of LAZY INSTANTIATION (means LAZY object/instance creation) -
+
+1. By Synchronization Method -
+In case of Eager instantiation the object is created at compile time whereas in lazy it is created when the
+method 'getInstance()' is called, now in both cases once the object is created it is already
+present and the locks acquired on the critical section will cause performance over head.
+
+2. MUTEX LOCK
+
+3. DOUBLE CHECK LOCKING
+
+
+
+#Pros & Cons of Singleton -
+Cons -
+1. If object has Dependency on something then DI would be difficult.
+2. Testing of Singleton code is difficult because we cannot create more than one instance
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
