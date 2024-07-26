@@ -1,0 +1,236 @@
+## Builder Design Pattern -
+
+# USE CASE of Builder Design Pattern
+--> Class with a lot of attributes.
+--> Need to validate attributes before object creation.
+--> If any validation fails object should not get created.
+
+*** 1 - We put the validations for class attributes either inside class constructor or their setters' method.
+*** 2 - But if we don't want the object of the class to be created before all the validations then
+setters' aren't a good way to do (because setters are called only when the constructor constructs the object)
+hence we will have to do it inside the constructor only.
+
+# Problem with normal way of initializing the objects i.e. by creating "new ConstructorName()" -
+--> SRP is violated as validations & attributes initialization is done inside Constructor only.
+--> Error prone, since there are too many attributes hence while instantiating the order might not be same.
+--> If we have lets say too many arguments to be initialized using constructor and each of them has to be in some
+combinations then we will have 2^n constructors (multiple constructors)
+where 'n' is number of attributes to be initialized.
+--> Problem with above point:
+    1. Constructor explosion - 2^n constructors because of multiple attributes
+    2. Tedious
+    3. Code Duplication - as we have to call many constructors with different combination, but this problem can
+    be solved by calling one constructor inside the other and this is called TELESCOPING CONSTRUCTORS
+    OR CONSTRUCTOR CHAINING i.e. bigger constructor calling smaller. - still 2^n cons. are called.
+    4. Some constructors may not be even possible because of constructor overloading i.e. constructors
+    having same attribute type and same no. of parameters, i.e. ambiguity
+    --> Student(String name, String phoneNumber)
+    --> Student(String email, String instructor)
+
+# Requirements arose from above problem "Avoid Constructor Explosion".
+
+# Solution to above problem -
+Do we have a DS that can store the attributes in the form of 'Key' and their corresponding values?
+--> Map or HM, yes, Hashmap<String, Object> // Object is parent of all classes and can hold any value.
+
+# Using HM for passing attributes to constructor -
+class Student{
+    private String name;
+    private int id;
+    private int rollNum;
+    private String phoneNumber;
+    private int gradYear;
+    private int batch;
+    private double psp;
+    .
+    .
+    .
+    . ... so on (too many attributes)
+
+    Student(HashMap<String, Object> hm){
+        // Object is created first in line 48 and initialized with default values of it's attribute type
+
+        // Then we do some validations on gradYear, psp, phoneNumber, etc.
+
+        // after this we initialize them
+        // since Object can hold any type of value hence we need to explicitly type cast it
+        this.name = (string) hm.get(name);
+        this.id = (int) hm.get(id);
+        this.rollNum = (int) hm.get(rollNum);
+        .
+        .
+        .
+        . ... (so on)
+    }
+}
+
+    // Instantiating this Student class from external/Client/Driver class
+    HashMap<String, Object> hm = new HashMap<>();
+    hm.put(nam, 2);
+    hm.put(id, "Scaler");
+    hm.put(phoneNumber, "+445278362813");
+    .
+    .
+    .
+    . ... (so on)
+
+# Problem with above approach of using HM to create object is -
+1. Undefined Key - wrong key passed due to human error or typo, like I did in line 67 for name as 'nam'.
+2. Type cast problem - so if a key expects a 'int' and we pass 'string' to it, the object will accept it
+as Objet is parent of all classes and can hold any type of value, and during compilation it won't throw error
+but at run time type casting will throw error "ClassCastException".
+
+
+# So up till now we were able to solve the problem of multiple constructors, tedious/duplicate code,
+constructor explosion by using HM to construct the object, but we have just seen two problem with HM way.
+
+# Solution to problem with HM -
+Do we have something that -
+1. Is dynamic like HM, to store multiple attributes with different data types?
+2. Can provide compile time safety on 'key' names?
+3. Can provide compile time safety on datatype of values?
+
+--> Yes a 'Class' can do it, a class is a custom DS that can solve the above 3 problems.
+
+
+# Using HelperClass to solve all above problems and building the object using Constructor -
+# This is the principle of Builder Design Pattern, and since this helper class is helping us to build
+the object hence this is called BUILDER.
+
+# Below we are seeing basic BUILDER -
+
+@Setter
+class StudentHelper{
+    private String name;
+    private int id;
+    private int rollNum;
+    private String phoneNumber;
+    private int gradYear;
+    private int batch;
+    private double psp;
+    .
+    .
+    .
+    . ... so on (too many attributes)
+}
+
+class Student{
+    private String name;
+    private int id;
+    private int rollNum;
+    private String phoneNumber;
+    private int gradYear;
+    private int batch;
+    private double psp;
+    .
+    .
+    .
+    . ... so on (too many attributes)
+
+    public Student(StudentHelper sh){
+        // Do Validations
+        this.name = sh.name;
+        this.id = sh.id;
+        this.rollNum = sh.rollNum;
+        .
+        .
+        .
+        . ... (so on)
+    }
+}
+
+class Client{
+    // StudentHelper class mein Constructor default hai aur value set karne k liye @setter annotation
+    // use kiya hai.
+    StudentHelper sh = new StudentHelper(); //Here our StudentHelper() is public and exposed to external world
+    sh.setName("Ajay");
+    sh.setId(2);
+    sh.setRollNum(365287);
+    .
+    .
+    .
+    . ... (so on)
+
+    Student student = new Student(sh); //Here our Student() is public and exposed to external world
+}
+
+
+# PRODUCTION BUILDER - Making Basic Builder code more efficient or elegant
+
+@Setter
+class StudentHelper{
+    private String name;
+    private int id;
+    private int rollNum;
+    private String phoneNumber;
+    private int gradYear;
+    private int batch;
+    private double psp;
+    .
+    .
+    .
+    . ... so on (too many attributes)
+
+    private StudentHelper(){}
+
+    public Student build(){
+        return new Student(this); // Student() constructor accepts the StudentHelper object, and if
+        // we pass (new StudentHelper()) inside this then it will reset all the attribute values to default
+        // hence we are passing 'this', so that it will refer to current object which is already created
+        // in client class i.e. 'builder'.
+    }
+}
+
+class Student{
+    private String name;
+    private int id;
+    private int rollNum;
+    private String phoneNumber;
+    private int gradYear;
+    private int batch;
+    private double psp;
+    .
+    .
+    .
+    . ... so on (too many attributes)
+
+    public Student(StudentHelper sh){
+        // Do Validations
+        this.name = sh.name;
+        this.id = sh.id;
+        this.rollNum = sh.rollNum;
+        .
+        .
+        .
+        . ... (so on)
+    }
+
+    public static StudentHelper getBuilder(){
+        return new StudentHelper();
+    }
+}
+
+class Client{
+    // StudentHelper class mein Constructor default hai aur value set karne k liye @setter annotation
+    // use kiya hai.
+    StudentHelper builder = Student.getBuilder(); // Now here we are not exposing StudentHelper() to
+    // external world
+    builder.setName("Ajay");
+    builder.setId(2);
+    builder.setRollNum(365287);
+    .
+    .
+    .
+    . ... (so on)
+
+    Student student = builder.build(); // now instead of doing "Student student = new Student(sh);",
+    // which was exposing our code we are using Builder Design pattern to construct the object.
+}
+
+
+
+
+
+
+
+
