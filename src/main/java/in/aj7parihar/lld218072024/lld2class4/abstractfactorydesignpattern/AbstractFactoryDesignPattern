@@ -1,0 +1,11 @@
+Abstract Factory Design Pattern -
+
+Client >> Flutter >> getUIFactory() >> UIFactory (based on i/p) i.e. IOS, Windows, Android >> createButton()/
+createDropdown()/creatMenu() >> clickButton()/showDropdown()/displayMenu()
+
+Hence without creating/exposing the objects of child class we are able to call the methods of child class.
+
+
+## Practical Factory - It is just a concept and not a design pattern like Factory Method or Abstract Factory.
+So in our Flutter example, we are making Flutter class as a point of contact for Client, instead of
+this we will create another class which will be called "Factory of Factories".

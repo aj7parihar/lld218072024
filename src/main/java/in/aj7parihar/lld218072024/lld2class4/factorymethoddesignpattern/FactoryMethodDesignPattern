@@ -1,0 +1,7 @@
+Factory Design Pattern aka Factory Method Design Pattern
+--> This design pattern is used when we have one super class with multiple sub-classes and
+based on input, we need to return one of the sub-class.
+--> This pattern takes out the responsibility of the instantiation of a class from the Client program
+to the Factory class.
+
+--> Super class in Factory Design Pattern can either be an Interface, Abstract class or a normal Java class.
