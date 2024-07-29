@@ -1,0 +1,104 @@
+## Prototype Design Pattern -
+
+- What is Prototype?
+- Prototype is a sample, model of something, ex - prototype of an apartment based on which we create multiple
+apartments.
+
+# Use case of Prototype Design Pattern -
+ -> Creation of new object multiple times for same class is time consuming as well as compute intensive
+ hence creating a main object once (as a prototype) and creating the copies of it as per use.
+
+# How to create copies of an existing object -
+
+Method 1. Existing object -> Student st;
+   Student stCopy = new Student();
+   stCopy.name = st.name;
+   stCopy.age = st.age;
+   stCopy.id = st.id;
+   .
+   .
+   . ... (so on)
+
+# Constructor and way of copying -
+Copy -
+    - Creating a new object from an existing is called copy.
+
+Shallow Copy -
+    - Changes in copied object are also reflected in original object.
+
+Deep Copy -
+    - Almost impossible to create a Deep Copy of an object => because for simple object it is fine but for nested
+      objects & multilevel objects it is very hard to create a new copy.
+    - Both objects (original and copied) do not share any common reference to any of the attributes.
+    - For primitive & immutable data types it is possible to achieve Deep Copy.
+    - But in case of mutable data types such List, it is a problem because if we make changes in copied
+      object the original object will also change.
+      Hence to overcome this problem we have to create a new list, copy member by member and then make
+      changes to it.
+
+
+Issues with Method 1. -
+- If attributes are private and we are copying from outside Student class then it won't be allowed.
+- Code duplication if we have to copy the same code at multiple places (classes).
+- Parent can hold the object of its child class, so in case of multiple sub classes if super class is holding
+  an object of one of it's child class but we don't know which class then in order to find the same we have
+  to write multiple if-else conditions, too much work for Client.
+
+
+# Solution to problems arose from Method 1.
+Method 2. - Using Copy Constructor
+- It will solve the issue of private attributes.
+- Avoids code duplication.
+
+- But the third issue => Parent holding objects of child class still exists, because tomorrow different
+  sub classes can be added, and again client has to check using multiple if-else conditions,
+  too much work for Client.
+  - The above problem violates OCP (as addition of new sub classes & if-else conditions) SOLID principle.
+  - It also violates SRP SOLID principle, as it is not the clients job to check which instance belong to which
+    sub class.
+
+
+Method 3. - Using 'clone()' method (avoid using this)
+- clone() is also used to create copy of an existing object.
+- By default, 'clone()' creates a shallow copy.
+- If we want deep copy out of it then '@Override' the same piece of code i.e. clone() method.
+
+class Student implements Cloneable {
+    // Cloneable is a - MARKER INTERFACE.
+    // clone() is clumsy to implement because 'Cloneable' interface itself does not have the clone() method,
+    // rather the 'Object' class has it as a protected method and child can call it.
+
+    public Object clone() throws CloneNotSupportedException{
+        // so if something does not supports 'clone()' method then it will throw the exception.
+        return super.clone();
+    }
+}
+
+class Client{
+    psvm{
+        Student st = new Student();
+
+        // creating copies from existing object.
+        Student stCopy = (Student) st.clone();
+        // Have to explicitly TypeCast because 'clone()' methods return 'Object'.
+    }
+}
+
+# Issues with Method 3.
+- Explicit type casting.
+- No compile time safety if we cast to anything, we will know at the run time only.
+- Exception handling, need to put in try-catch block.
+- Main object has nested objects within it, and while copying it, if any of the nested object does not implement
+  'clone()' then it will throw exception.
+
+- Super class - child class problem from Method 1/ Method 2 still persists.
+
+
+# Solution to "Super Class - Child Class object problem" from Method 1/ Method 2/ Method 3 -
+-> Using 'copy()' method in parent class and whichever sub class is implementing the Super class will
+   have this method.
+   Now whenever from Client Super class object reference calls this method, it will directly call
+   the sub class to which it belongs to without any if-else check.
+
+
+
