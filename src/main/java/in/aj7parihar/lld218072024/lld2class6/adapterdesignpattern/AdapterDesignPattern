@@ -1,0 +1,114 @@
+## Adapter Design Pattern -
+-> Up until now we have  been seeing Creational Design Pattern such as Singleton, Builder, Factory Method,
+   Abstract Factory, Prototype
+
+-> Today we will learn about Adapter Design Pattern, which is a part fo Structural Design Pattern.
+
+Structural Design Pattern - It deals with how our classes and objects are assembled together
+                            to give us a bigger structure that is flexible and efficient.
+                            - How different classes interact (Inheritance) with each other.
+                            - How different classes will be composed (Composition).
+                            Structural patterns are Adapter, Decorator, Facade, etc.
+
+
+Adapter Design Pattern -
+                         The Adapter design pattern is a structural pattern that allows objects with
+                         incompatible interfaces (**see definition below) to work together.
+                         It acts as a bridge between two incompatible interfaces,
+                         enabling them to interact without modifying their existing code.
+
+                         Classic example is, adapter for connection circled pin chargers with flat thin pin sockets.
+
+                         // Code Example -
+                         Key Concepts:
+                         Target Interface: Defines the domain-specific interface that the client uses.
+
+                         Adapter: A class that implements the Target interface and translates the requests
+                         it receives from the client into calls to the Adaptee's methods.
+
+                         Adaptee: The existing class with an incompatible interface that needs to be adapted.
+
+                         Client: The class that interacts with the Target interface.
+
+                         How It Works:
+                         The Adapter class wraps an Adaptee object and makes it compatible with the Target interface.
+                         This allows the client to work with the Adaptee's interface as if it were the
+                         Target interface.
+
+                         Example:
+                         Suppose you have a class that provides results in volts, and another class that expects
+                         results in kilovolts. An adapter can convert volts to kilovolts so that both classes
+                         can work together.
+
+                         // Target Interface
+                         interface KilovoltOutput {
+                             double getKilovolts();
+                         }
+
+                         // Adaptee - jisko adapt hona hai.
+                         class VoltOutput {
+                             public double getVolts() {
+                                 return 1000;
+                             }
+                         }
+
+                         // Adapter - jo Adaptee ko adapt karaega.
+                         // This is tightly  coupled to 3rd party/Target Interface, whatever changes in
+                         // target/3rd party, my adapter should adapt according to it, keeping rest of the internal
+                         // code clean and untouched.
+                         // Example of PhonePe and different banks.
+                         class VoltToKilovoltAdapter implements KilovoltOutput {
+                             private VoltOutput voltOutput;
+
+                             public VoltToKilovoltAdapter(VoltOutput voltOutput) {
+                                 this.voltOutput = voltOutput;
+                             }
+
+                             @Override
+                             public double getKilovolts() {
+                                 return voltOutput.getVolts() / 1000;
+                             }
+                         }
+
+                         // Client
+                         public class Client {
+                             public static void main(String[] args) {
+                                 VoltOutput voltOutput = new VoltOutput();
+                                 KilovoltOutput adapter = new VoltToKilovoltAdapter(voltOutput);
+
+                                 System.out.println("Kilovolts: " + adapter.getKilovolts());
+                             }
+                         }
+
+                         When to Use:
+                         -> When you have a class (Adaptee) that you want to use but its interface
+                            is not compatible with the rest of your code.
+                         -> When you want to reuse existing classes without modifying them.
+                         -> When you need to interface with legacy systems or a third-party library
+
+                         ** Incompatible Interfaces meaning -
+                         When we say "incompatible interfaces," we mean that two classes or components in a
+                         program cannot communicate or work together directly because their methods or functions
+                         do not match. In other words, the way one class presents or expects data is different
+                         from the way another class provides or processes data.
+
+                         For example, imagine you have two classes:
+
+                         Class A provides data in a specific format (like volts in the previous example).
+                         Class B expects data in a different format (like kilovolts).
+                         Since Class A and Class B have different methods (or "interfaces") for dealing with the data,
+                         they can't work together directly—they are "incompatible."
+
+                         The Adapter pattern solves this by introducing an Adapter class that acts as a middleman,
+                         converting the data from one format to the other so that the two classes can work together
+                         without changing their existing code.
+
+
+--> Do not talk to 3rd party systems directly, avoid tight coupling, always code to an interface that will
+    provide loose coupling.
+
+--> Dependency Inversion - Do not depend on concrete classes, rather use Interface, like we did in project
+    module, where in Product Controller we did not use FakeStoreProductService or OwnProductService  directly
+    rather used ProductService Interface and injected it as dependency.
+
+

@@ -1,0 +1,124 @@
+## Strategy Design Pattern -
+-> One of the Behavioural Design Pattern
+
+# Behavioural Design Pattern -
+                              Behavioral design patterns deals with the assignment of responsibilities
+                              between objects.
+                              They manage interactions and communication between objects,
+                              promoting loose coupling and scalability.
+
+
+
+# Strategy Design Patter -
+                          Definition:
+                          The Strategy Design Pattern allows you to define a family of algorithms,
+                          put each of them into a separate class, and make their objects interchangeable.
+                          This pattern enables a client (the part of your program that uses the algorithm)
+                          to choose which algorithm to use at runtime.
+
+                          Real-World Analogy:
+                          Imagine you're navigating through a city, and you can choose different modes of
+                          transportation: by car, by bike, or by walking. The method you choose depends on
+                          factors like distance, weather, and your personal preference.
+
+                          Driving a car is faster but may be expensive due to fuel costs.
+                          Riding a bike is slower but healthier and cheaper.
+                          Walking is the slowest but is free and provides exercise.
+                          Each of these transportation methods is a "strategy" for getting from one place to another.
+                          Depending on your situation, you can choose the most appropriate strategy.
+
+                          Key Components:
+                          Strategy Interface: The common interface for all strategies (e.g., TransportationMode).
+                          Concrete Strategies: Different implementations of the interface (e.g., Car, Bike, Walking).
+                          Context: The object that uses the strategy (e.g., Navigator).
+
+                          Example in Code:
+                          Let's consider a simple navigation application that can use different modes of
+                          transportation.
+
+                          // Strategy Interface -
+                          interface TransportationMode {
+                              void travel(String destination);
+                          }
+
+                          // Concrete Strategy 1: Car
+                          class Car implements TransportationMode {
+                              @Override
+                              public void travel(String destination) {
+                                  System.out.println("Driving to " + destination + " by car.");
+                              }
+                          }
+
+                          // Concrete Strategy 2: Bike
+                          class Bike implements TransportationMode {
+                              @Override
+                              public void travel(String destination) {
+                                  System.out.println("Biking to " + destination + " by bike.");
+                              }
+                          }
+
+                          // Concrete Strategy 3: Walking
+                          class Walking implements TransportationMode {
+                              @Override
+                              public void travel(String destination) {
+                                  System.out.println("Walking to " + destination + ".");
+                              }
+                          }
+
+                          // Context: Navigator
+                          class Navigator {
+                              private TransportationMode mode;
+
+                              public void setTransportationMode(TransportationMode mode) {
+                                  this.mode = mode;
+                              }
+
+                              public void goToDestination(String destination) {
+                                  mode.travel(destination);
+                              }
+                          }
+
+                          // Client Code
+                          public class Client {
+                              public static void main(String[] args) {
+                                  Navigator navigator = new Navigator();
+
+                                  // Set the strategy to travel by car
+                                  navigator.setTransportationMode(new Car());
+                                  navigator.goToDestination("Downtown");
+
+                                  // Change strategy to travel by bike
+                                  navigator.setTransportationMode(new Bike());
+                                  navigator.goToDestination("Park");
+
+                                  // Change strategy to walking
+                                  navigator.setTransportationMode(new Walking());
+                                  navigator.goToDestination("Nearby Store");
+                              }
+                          }
+
+                          Explanation:
+                          -> Strategy Interface (TransportationMode): This defines the method travel() that
+                             all transportation modes must implement.
+
+                          -> Concrete Strategies (Car, Bike, Walking): These are the different implementations
+                             of the TransportationMode interface. Each class implements the travel method in its way.
+
+                          -> Context (Navigator): This class uses a TransportationMode object to travel to a
+                             destination. It allows changing the mode of transportation (strategy) at runtime.
+
+
+                          When to Use the Strategy Pattern:
+                          -> When you have multiple ways to do something (e.g., different algorithms) and
+                             want to switch between them easily.
+
+                          -> When you want to avoid having complex conditional statements (if-else or switch-case)
+                             to choose an algorithm.
+
+                          -> When your algorithm might change over time, and you want to be able to update or add
+                          new strategies without modifying the existing codebase.
+
+                          Summary -
+                          This pattern provides flexibility and adheres to the principle of "Open/Closed Principle,"
+                          where the code is open for extension but closed for modification.
+
