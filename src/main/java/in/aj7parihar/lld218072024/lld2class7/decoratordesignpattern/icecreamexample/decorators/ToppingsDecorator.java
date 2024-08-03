@@ -1,6 +1,6 @@
-package in.aj7parihar.lld218072024.lld2class7.decoratordesignpattern.decorators;
+package in.aj7parihar.lld218072024.lld2class7.decoratordesignpattern.icecreamexample.decorators;
 
-import in.aj7parihar.lld218072024.lld2class7.decoratordesignpattern.IceCream;
+import in.aj7parihar.lld218072024.lld2class7.decoratordesignpattern.icecreamexample.IceCream;
 
 public abstract class ToppingsDecorator implements IceCream {
 

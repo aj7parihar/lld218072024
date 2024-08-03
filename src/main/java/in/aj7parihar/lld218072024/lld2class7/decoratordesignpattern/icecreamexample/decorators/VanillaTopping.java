@@ -1,6 +1,6 @@
-package in.aj7parihar.lld218072024.lld2class7.decoratordesignpattern.decorators;
+package in.aj7parihar.lld218072024.lld2class7.decoratordesignpattern.icecreamexample.decorators;
 
-import in.aj7parihar.lld218072024.lld2class7.decoratordesignpattern.IceCream;
+import in.aj7parihar.lld218072024.lld2class7.decoratordesignpattern.icecreamexample.IceCream;
 
 public class VanillaTopping extends ToppingsDecorator{
     // this declaration of iceCream type is not needed here because it is already protected in superclass.

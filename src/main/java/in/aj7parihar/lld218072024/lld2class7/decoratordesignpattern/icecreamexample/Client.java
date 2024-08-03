@@ -1,8 +1,8 @@
-package in.aj7parihar.lld218072024.lld2class7.decoratordesignpattern;
+package in.aj7parihar.lld218072024.lld2class7.decoratordesignpattern.icecreamexample;
 
-import in.aj7parihar.lld218072024.lld2class7.decoratordesignpattern.base.OrangeCone;
-import in.aj7parihar.lld218072024.lld2class7.decoratordesignpattern.decorators.Cherry;
-import in.aj7parihar.lld218072024.lld2class7.decoratordesignpattern.decorators.StrawberryTopping;
+import in.aj7parihar.lld218072024.lld2class7.decoratordesignpattern.icecreamexample.base.OrangeCone;
+import in.aj7parihar.lld218072024.lld2class7.decoratordesignpattern.icecreamexample.decorators.Cherry;
+import in.aj7parihar.lld218072024.lld2class7.decoratordesignpattern.icecreamexample.decorators.StrawberryTopping;
 
 public class Client {
     public static void main(String[] args) {
