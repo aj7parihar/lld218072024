@@ -1,0 +1,4 @@
+## Observer Design Patter -
+-> Also known as: Event-Subscriber, Listener, Publisher-Subscriber (Pub-Sub)
+-> Belongs to family of Behavioral Design Pattern
+

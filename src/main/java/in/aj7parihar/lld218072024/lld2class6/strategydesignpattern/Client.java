@@ -8,7 +8,8 @@ public class Client {
         demoStrategyDesignPattern();
     }
     public static void demoStrategyDesignPattern() {
-        // So what Behavioral Design Pattern does is, it creates the class of all the different algorithms and then
+        // So what Behavioral Design Pattern does is, it creates the class of all the different algorithms
+        // and then
         // use there objects interchangeably, in this case it is Strategy Design Pattern.
         // So if I want to decide at run time which strategy to choose from the options
         // I have the flexibility to do so and this is what we call "loose coupling".

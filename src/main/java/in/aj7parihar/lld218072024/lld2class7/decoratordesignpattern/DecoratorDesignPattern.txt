@@ -1,0 +1,13 @@
+## Decorator Design Pattern -
+-> Also known as: Wrapper
+-> Belongs to family of Structural Design Pattern
+
+-> Decorator is a structural design pattern that lets you attach new behaviors to objects
+   by placing these objects inside special wrapper objects that contain the behaviors.
+   --> Main object wrapped inside the special decorator objects.
+
+Read more here - https://refactoring.guru/design-patterns/decorator
+
+Advantages -
+           - Decorator allows us to add behaviours at runtime.
+           - It attaches additional responsibilities to an object (base) dynamically.
