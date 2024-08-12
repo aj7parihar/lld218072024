@@ -1,0 +1,53 @@
+
+-> MVP - Minimum Viable Product
+        - Most important features to make a software usable.
+
+
+# Design a PEN
+
+1. Overview
+    - Know - No
+    - Don't know - Yes, could you please provide a brief overview, after this listen to what interviewer says.
+        - ask question only when interviewer is done.
+
+        - Overview given by Karan:
+            Do an entity design (class diagram) to represents a s/w system that supports
+            add, delete, etc. (here it is asking CRUD operations) of multiple types of Pen.
+
+2. What kind of systems do I need to build?
+    - What design?
+        Since it is clearly mentioned in the overview that we need to design only class diagram hence
+        Schema Design and E2E coding not required.
+
+    - What user interactions required, REST API or Command Line?
+        Clearly asked only for Class Diagram hence this not required.
+
+    - Data Persistence required?
+        Clearly asked only for Class Diagram hence this is also not required.
+
+3. Requirement gathering
+    - >=5 features/use cases (MVP)
+    - if there is time then >=2 good to have features
+    - keep asking questions
+
+    -> Requirement gathering for Pen Design
+        - What is a Pen? - Physical entity that writes on paper (except pencil)
+        - Types of Pen - ball, gel, fountain/ink, etc.
+        - Does it have refill? - ball and gel has refill, fountain or ink does not have
+        - Is it refillable? - some pens are but some are use and throw
+        - Refill will have nib
+        - Ink pen has nib directly
+        - Refill will have ink, but fountain pen will have ink directly
+        - Variety of pen - single refill or multiple refill
+        - Colors? - red, blue, black, etc.
+        - Nib can be of different radius
+
+4. Class Diagram -
+    - Visualization
+        - Physical Structure
+        - User Journey
+
+    - refer "PenEntityDesign.mmd"
+
+
+5. Schema Design - not required, cleared in step 2

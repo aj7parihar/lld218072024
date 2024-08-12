@@ -1,0 +1,96 @@
+classDiagram
+    class Pen{
+        <<abstract>>
+        - name : String
+        - brand : String
+        - price : double
+        - penType : Enum
+
+        <<abstract>>
+        + write():void
+    }
+
+    class PenType{
+        BALL,
+        GEL,
+        INK
+    }
+
+    PenType o.. Pen : has
+
+    Pen <|-- BallPen:extends
+    class BallPen{
+        <<abstarct>>
+
+        - List~Refill~
+    }
+
+    Pen <|-- GelPen:extends
+    class GelPen{
+        <<abstarct>>
+
+        - List~Refill~
+    }
+
+    Pen <|-- InkPen:extends
+    Refillable <|.. InkPen:implement
+    class InkPen{
+        <<abstarct>>
+
+        - ink : Ink
+        - nib : Nib
+    }
+
+    class Refill{
+        - ink : Ink
+        - nib : Nib
+    }
+
+    class Nib{
+        - radius : double
+    }
+
+    class Ink{
+        - color : ColorType
+    }
+
+    class ColorType{
+        RED,
+        BLUE,
+        BLACK
+    }
+
+
+    class Refillable{
+        <<inteface>>
+        + refill()
+    }
+
+    BallPen <|-- ReynoldsGetter:extends
+    Refillable <|.. ReynoldsGetter:implements
+    class ReynoldsGetter{
+
+    }
+
+    BallPen <|-- CelloGripper:extends
+    Refillable <|.. CelloGripper:implements
+    class CelloGripper{
+
+    }
+
+    BallPen <|-- NatrajUseAndThrow:extends
+    class NatrajUseAndThrow{
+
+    }
+
+
+    GelPen <|-- AddGelAchiever:extends
+    Refillable <|.. AddGelAchiever:implements
+    class AddGelAchiever{
+
+    }
+
+    InkPen <|-- Parker:extends
+    class Parker{
+
+    }
