@@ -1,0 +1,75 @@
+## Class Diagram
+
+-> From PRD (Product Requirement Document) we know that all the nouns represent entities.
+-> Hence, nouns = entities = classes = table_names = models
+
+-> Different entities in the application can be:
+    - class or abstract class,
+    - interfaces,
+    - enums
+
+-> A Class diagram describes the relationship b/w different entities.
+
+
+# Relationship
+
+-> Types of relationships b/w entities
+    - "Is a" : Inheritance -> types are implements and extends.
+        - Inheritance: Arrow from Child ----> Parent
+            - Extends: Bold line "---- extends -->" from child to parent
+            - Implements: Dotted line ".... implements ....>" from child to parent
+
+    - "Has a" : Association
+        - Association: A Class has another class i.e., one class as a attribute in other class.
+        - Example: Product has-a Category from BE project.
+
+            - Composition: Child entity can not exist without parent entity.
+            - strong coupling or strong association b/w two entities.
+            - denoted by "----<>" filled diamond arrow
+                - Example: Human --- has-a ---<> Heart, so if Human class doesn't exist so will the Heart class.
+                         - Car --- has-a ---<> Engine,
+                         - Apartment --- has-a ---<> Room
+                         - Book --- has-a ---<> Page
+
+            - Aggregation (Collection): The child entity can exist independently w/o parent entity.
+            - loose coupling or weak association b/w two entities.
+            - denoted by '----< >' blank diamond arrow
+                - Example: Movie ---- has-a ---< > actor,so if Movie class does not exist then
+                           Actor class can still exist.
+                         - Product --- has-a ---< > Category, even if Product is destroyed
+                           Category will still exist.
+                         - Library --- has-a ---< > Book
+
+
+
+# Representation of entities
+-> In UML, "Class" is represented by a rectangular box, and has 3 parts
+    - class name on top,
+    - attributes in middle (-attributeName : dataType), and
+    - behaviors at bottom (+methodName() : dataType)
+
+
+    -> Interface: <<interface>>
+
+    -> Abstract Class: AbstractClassInItalics
+
+    -> Enums or Enumerations: ENUMSInCAPITAL and enum types also in CAPITALS
+
+# Attributes
+    - public: "+"
+    - private: "-"
+    - protected: "#"
+    - default/package: "~"
+    - static: "__underlined__"
+    - final (in Java) / constant (const in C++): "UPPER CASE"
+
+# Methods
+    - abstract methods: Italics()
+
+
+# Dependency : One class doing something of another class
+    - A class using static method of another class.
+    - A class throwing exception of another class.
+    - represented by dotted arrows "......>"
+    - Example: [BankAccount] .....dependency....> [Math]
+

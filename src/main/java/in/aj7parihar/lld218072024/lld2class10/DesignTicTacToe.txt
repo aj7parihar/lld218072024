@@ -1,0 +1,86 @@
+## Design Tic Tac Toe
+
+-> Always focus on coding one functionality end to end.
+
+-> Different phases of designing
+
+1. Overview : Overview of the system we need to build.
+    There can be two cases:
+    - Know: if we know what we need to build then get aligned to interviewer's requirement as well.
+
+    - Don't know - ask the interviewer for brief and then listen politely, and ask questions if any.
+
+2. What kind of system do we need to build?
+    - Design: What we need to do from the below three or all three?
+        - do we need to do ENTITY DESIGN (CLASS DIAGRAM)? +
+        - do we need to do Schema Design? +
+        - end to end working code?
+
+    - User Interaction: How we want to take the i/p and interact with end users
+        - REST API? or
+        - Command Line?
+
+    - Persist Data
+        - NO: then no worries
+        - YES: then two cases
+            - Persist data in "In Memory DB"? (Data stored in RAM using List, Map and goes after app restart)
+            - Persist data in actual DB? (Data stored in Disk, and stays even after app restart)
+
+3. Requirement gathering
+    - Focus to gather at least 5 to 7 critical requirements.
+    - Get the clarity on edge cases.
+    - know what kind of other real world applications it is similar to?
+        - like in our case Tic Tac Toe is a board game, and it is similar to other board games such as
+            sudoku, snakes & ladder, chess, ludo, etc.
+
+    Requirements for our design:
+        - size of the board (n*n)
+        - no of players (n-1)
+        - symbols involved (players can choose their symbols at the start)
+            - design pattern involved when we need to validations is Builder
+        - outcome of the game (when does the game end) --> Win, draw
+        - game status --> Active, Paused, Completed
+        - who will play first?
+        - how a player will win?
+        - do we have a bot?
+            - how many max number of bots allowed? (n-2), since we have n-1 players so at least one human req.
+        - does bot have difficulty level?
+            - difficulty level - easy, medium, hard
+        - UNDOING the last move (undo feature)
+            - For tic-tac-toe it is fine but for board game involving too many moves, how do we achieve undo?
+            1. Snapshot of every move (TC will be O(1) but SC will increase)
+            2. Replay, store the list of moves in an appropriate DS and if undo is done, then reset the list
+                snd replay from start till one move behind the move which we have to undo.
+
+        - Good to have features: suggest and leave it, not necessarily we need to build
+            - Tournament
+            - Pause
+            - Leaderboard
+
+
+4. Class Diagram (entity design)
+    - Visualize the physical structure and user journey of the system to be built.
+
+     - GAME (in what context we are going to build)
+     - board
+     - board cell
+     - players
+     - cell markers ('X', 'O')
+     - move
+
+     CLASSES:
+     -
+
+
+5. Schema Design
+
+
+
+
+
+
+
+
+
+
+

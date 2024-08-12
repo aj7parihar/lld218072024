@@ -1,0 +1,101 @@
+## Use Case Diagram
+
+-> A picture is worth 1000 words!
+
+-> UML - Unified Modelling Language
+       - Standard way to represent s/w CONCEPTS using symbols and notations.
+
+-> Why UML?
+    - Picture is easy to understand or visualize.
+    - Picture is faster to understand.
+    - Picture is simplified hence less ambiguity.
+
+-> UML diagrams are broadly categorised into three categories
+1. Structure based UML Diagram - describes how the structure of our s/w CONCEPTS look like.
+    - Class Diagram
+    - Package Diagram
+    - Object Diagram
+    - Component Diagram
+
+2. Behaviour based UML Diagram - describes how different s/w CONCEPTS behave.
+    - Use Case Diagram (Product Managers use this a lot)
+    - State Machine
+    - Activity Diagram
+
+3. Interaction based UML Diagram - describes how different s/w CONCEPTS interact.
+    - Sequence Diagram (Product Managers use this a lot)
+    - Timing Diagram
+
+
+# Use Case Diagram
+    - What is the use of the feature(s) ?
+    - What are the scenarios it is going to cover?
+    - What are functionalities involved?
+
+-> There are 5 key components involved in Use Case Diagram -
+    1. System Boundary : Scope of the system
+        - What I am building.
+        - What I am not building, ex., FakeStore, Stripe, RazorPay in our BE project.
+        - represented by SQUARE '[]' symbol
+
+    2. Use cases/features
+        - What are the features/use cases supported within my system boundary, ex. getProducts(),
+            getAllProducts(), updateProducts(), etc., in our BE project.
+        - represent by OVAL '()' symbol.
+
+    3. Actor - users (basically noun, not necessarily physical users) who are using it
+        - represented using a STICK  '()' figure.
+                                      /|\
+                                       |
+                                      / \
+
+    4. Includes
+        - What are the prerequisites/dependencies?
+        - represented using ARROW '-->' from Parent to Child and write "includes" over the arrow.
+        - Ex: before placing the order in amazon we have prerequisites to Add Address, Add Payment, etc.
+        -         (Payment) <-------includes---- (placeOrder) ----includes--> (Add Address)
+
+    5. Extends
+        - Multiple variants of same feature, like extension, inheritance
+        - ulta of Includes i.e. ARROW '<---' from child to parent and write "extends" over the arrow.
+        - example: multiple ways to login into a website such as email, phone, sms, github, etc.
+        -   (Google) -----extends----> (login) <-----extends---- (phone)
+        -   (email) -----extends----> (login) <------extends---- (github)
+        - here 'login' is a general way, and all extends are specific ways.
+        - just like inheritance where we have a parent class as a general class and then its
+            specific implementations.
+
+
+# Use Case Diagram for Scaler -
+-> >=5 uses cases
+    - (joinClass)
+    - (solveAssignments)
+    - ()
+    - ()
+    - ()
+
+-> >=2 actors (Students, TAs, Mentors, Instructors are actors who are using the system)
+    -
+    -
+
+-> Includes
+    -
+    -
+
+-> Extends
+    - (joinClass) general feature and two specific ways to implement it
+        - Students or audience
+        - TAs or host
+    -
+
+
+-> System Boundary
+    - Scaler System[] is a boundary
+    -
+    -
+
+
+
+
+
+
