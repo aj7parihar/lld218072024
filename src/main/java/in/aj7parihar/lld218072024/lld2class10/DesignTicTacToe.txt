@@ -12,8 +12,8 @@
 
 2. What kind of system do we need to build?
     - Design: What we need to do from the below three or all three?
-        - do we need to do ENTITY DESIGN (CLASS DIAGRAM)? +
-        - do we need to do Schema Design? +
+        - do we need to do ENTITY DESIGN (CLASS DIAGRAM)? or
+        - do we need to do Schema Design? or
         - end to end working code?
 
     - User Interaction: How we want to take the i/p and interact with end users
@@ -27,7 +27,7 @@
             - Persist data in actual DB? (Data stored in Disk, and stays even after app restart)
 
 3. Requirement gathering
-    - Focus to gather at least 5 to 7 critical requirements.
+    - Focus to gather at least 5 to 7 critical requirements (MVP)
     - Get the clarity on edge cases.
     - know what kind of other real world applications it is similar to?
         - like in our case Tic Tac Toe is a board game, and it is similar to other board games such as
@@ -37,7 +37,8 @@
         - size of the board (n*n)
         - no of players (n-1)
         - symbols involved (players can choose their symbols at the start)
-            - design pattern involved when we need to validations is Builder
+            - design pattern involved when we need to do validations is BUILDER
+            - Not FACTORY, Factory is choosing corresponding Object depending upon type
         - outcome of the game (when does the game end) --> Win, draw
         - game status --> Active, Paused, Completed
         - who will play first?
@@ -46,11 +47,13 @@
             - how many max number of bots allowed? (n-2), since we have n-1 players so at least one human req.
         - does bot have difficulty level?
             - difficulty level - easy, medium, hard
+            - for each difficulty level there will be algorithm, so what kind of design pattern we can choose?
+            - Strategy
         - UNDOING the last move (undo feature)
             - For tic-tac-toe it is fine but for board game involving too many moves, how do we achieve undo?
             1. Snapshot of every move (TC will be O(1) but SC will increase)
             2. Replay, store the list of moves in an appropriate DS and if undo is done, then reset the list
-                snd replay from start till one move behind the move which we have to undo.
+                and replay from start till one move behind the move which we have to undo.
 
         - Good to have features: suggest and leave it, not necessarily we need to build
             - Tournament
